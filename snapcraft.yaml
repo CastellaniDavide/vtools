@@ -9,7 +9,7 @@ confinement: strict
 
 apps:
   manage-project:
-    command: bin/app
+    command: bin/vtools
     plugs: [home,network-bind]
 
 parts:
