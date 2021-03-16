@@ -1,0 +1,21 @@
+name: vtools
+version: '1.0'
+summary: python test package
+description: |
+ test app for python
+base: core18
+grade: stable
+confinement: strict
+
+apps:
+  manage-project:
+    command: bin/app
+    plugs: [home,network-bind]
+
+parts:
+  manage-project:
+    plugin: python
+    python-version: python3
+    source: .
+    build-packages: []
+    stage-packages: [ncbi-blast+]
