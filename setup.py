@@ -1,4 +1,5 @@
 from setuptools import setup, find_packages
+import sys,os
 
 setup(
       name='vtools',
@@ -10,12 +11,12 @@ setup(
       author="aaa",#get("https://api.github.com/repos/CastellaniDavide/vtools").json()['owner']['login'],
       author_email="aaa",#get(f"https://api.github.com/users/{get('https://api.github.com/repos/CastellaniDavide/vtools').json()['owner']['login']}").json()['email'],
       license='GNU',
-      packages=find_packages(),
+      packages = ['src'],
       python_requires=">=3.6",
       platforms="linux_distibution",
       install_requires=[],#i for i in get("https://raw.githubusercontent.com/CastellaniDavide/vtools/master/requirements/requirements.txt").text.split("\n") if not "#" in i and i != ''],
       zip_safe=True,
-    entry_points = {
+      entry_points = {
         'console_scripts': [
             'vtools=src.vtools:vtools']
             },
