@@ -17,6 +17,6 @@ setup(
       zip_safe=True,
     entry_points = {
         'console_scripts': [
-            'vtools=bin.vtools:vtools']
+            'vtools=src.vtools:vtools']
             },
       )
