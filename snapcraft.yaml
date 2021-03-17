@@ -18,3 +18,5 @@ parts:
     python-version: python3
     source: .
     stage-packages: [ncbi-blast+]
+    python-packages:
+      - tabular_log
