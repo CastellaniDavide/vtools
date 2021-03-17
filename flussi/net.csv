@@ -1,49 +1,5 @@
-PC_name,network_card_name,V4,MAC
-"enp0s3,","10.0.2.15,","080027A70514,",NAT
-"enp0s3,","10.0.2.15,","080027A70514,",Bridged Interface 'Realtek PCIe GbE Family Controller #2'
-"enp0s3,","10.0.2.15,","080027A70514,",NAT
-"enp0s3,","10.0.2.15,","080027A70514,",NAT
-"enp0s3,","10.0.2.15,","080027A70514,",NAT,['NAT']
-"enp0s3,","10.0.2.15,","080027A70514,",Bridged Interface 'Realtek PCIe GbE Family Controller #2',"[""Bridged Interface 'Realtek PCIe GbE Family Controller #2'""]"
-"enp0s3,","10.0.2.15,","080027A70514,",NAT,['NAT']
-"enp0s3,","10.0.2.15,","080027A70514,",NAT,['NAT']
-"enp0s3,","10.0.2.15,","080027A70514,",NAT,['NAT']
-"enp0s3,","10.0.2.15,","080027A70514,",Bridged Interface 'Realtek PCIe GbE Family Controller #2',"[""Bridged Interface 'Realtek PCIe GbE Family Controller #2'""]"
-"enp0s3,","10.0.2.15,","080027A70514,",NAT,['NAT']
-"enp0s3,","10.0.2.15,","080027A70514,",NAT,['NAT']
-"enp0s3,","10.0.2.15,","080027A70514,",NAT,
-"enp0s3,","10.0.2.15,","080027A70514,",Bridged Interface 'Realtek PCIe GbE Family Controller #2',
-"enp0s3,","10.0.2.15,","080027A70514,",NAT,
-"enp0s3,","10.0.2.15,","080027A70514,",NAT,
-enp0s3,10.0.2.15,080027A70514,NAT,
-enp0s3,10.0.2.15,080027A70514,Bridged Interface 'Realtek PCIe GbE Family Controller #2',
-enp0s3,10.0.2.15,080027A70514,NAT,
-enp0s3,10.0.2.15,080027A70514,NAT,
-enp0s3,10.0.2.15,080027A70514,NAT,
-enp0s3,10.0.2.15,080027A70514,Bridged Interface 'Realtek PCIe GbE Family Controller #2',
-enp0s3,10.0.2.15,080027A70514,NAT,
-enp0s3,10.0.2.15,080027A70514,NAT,
-enp0s3,10.0.2.15,080027A70514,NAT,
-enp0s3,10.0.2.15,080027A70514,Bridged Interface 'Realtek PCIe GbE Family Controller #2',
-enp0s3,10.0.2.15,080027A70514,NAT,
-enp0s3,10.0.2.15,080027A70514,NAT,
-enp0s3,enp0s3,10.0.2.15,080027A70514,NAT,
-enp0s3,enp0s3,10.0.2.15,080027A70514,Bridged Interface 'Realtek PCIe GbE Family Controller #2',
-enp0s3,enp0s3,10.0.2.15,080027A70514,NAT,
-enp0s3,enp0s3,10.0.2.15,080027A70514,NAT,
-enp0s3,enp0s3,10.0.2.15,080027A70514,NAT,
-enp0s3,enp0s3,10.0.2.15,080027A70514,Bridged Interface 'Realtek PCIe GbE Family Controller #2',
-enp0s3,enp0s3,10.0.2.15,080027A70514,NAT,
-enp0s3,enp0s3,10.0.2.15,080027A70514,NAT,
-enp0s3,,,,
-enp0s3,,,,
-enp0s3,,,,
-enp0s3,,,,
-Clone di ubuntu_base,enp0s3,10.0.2.15,080027A70514,NAT
-Clone di ubuntu_base2,enp0s3,10.0.2.15,080027A70514,Bridged Interface 'Realtek PCIe GbE Family Controller #2'
-gpg_base,enp0s3,10.0.2.15,080027A70514,NAT
-Clone di gpg_base,enp0s3,10.0.2.15,080027A70514,NAT
-Clone di ubuntu_base,enp0s3,10.0.2.15,080027A70514,NAT
-Clone di ubuntu_base2,enp0s3,10.0.2.15,080027A70514,Bridged Interface 'Realtek PCIe GbE Family Controller #2'
-gpg_base,enp0s3,10.0.2.15,080027A70514,NAT
-Clone di gpg_base,enp0s3,10.0.2.15,080027A70514,NAT
+PC_name,network_card_name,V4,MAC,Attachment
+Clone di ubuntu_base,enp0s,10.0.2.1,080027A7051,NAT
+Clone di ubuntu_base2,enp0s,10.0.2.1,080027A7051,Bridged Interface 'Realtek PCIe GbE Family Controller #2'
+gpg_base,enp0s,10.0.2.1,080027A7051,NAT
+Clone di gpg_base,enp0s,10.0.2.1,080027A7051,NAT

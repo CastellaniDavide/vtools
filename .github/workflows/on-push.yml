@@ -47,6 +47,7 @@ jobs:
         python setup.py sdist bdist_wheel
   
   test-choco:
+    needs: pypi-install-test
     runs-on: windows-latest
     steps:
     - uses: actions/checkout@v2
@@ -54,12 +55,25 @@ jobs:
       with:
         python-version: '3.8'
         architecture: 'x64'
-
-    - name: Try to build & install
+    - name: Try to build
       run: |
         cd choco 
         choco pack
         choco install python
-        choco install vtools -d-v -s . --pre -y --force
-        move ./* ../
-        
+        choco install createstructure -d-v -s . --pre -y --force
+
+  publish-choco:
+    needs: test-choco
+    runs-on: windows-latest
+    steps:
+    - uses: actions/checkout@v2
+    - uses: actions/setup-python@v2
+      with:
+        python-version: '3.8'
+        architecture: 'x64'
+    - name: Build & Publish
+      run: |
+        cd choco
+        choco apikey --key ${{ secrets.CHOCO_APIKEY }} --source https://push.chocolatey.org/
+        choco pack
+        choco push .

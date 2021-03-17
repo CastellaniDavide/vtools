@@ -2,7 +2,7 @@
 To check the correct funtionality try to:
  - By hash: write into PowerShell : Get-FileHash C:\Progra~1\vtools\vtools.exe
 	The result will be: 
-   	- E0740ED3DEFE500D9F52FD6C597EDBDE1B0EF191636D6A447E6949610C5DDE86
+   	- 12F0A84DD2F78DAC97EDDE3B27E272426F701E3BD2F37CA03369D1CBAC56D49A
  - If you want you can check it manually with the source, you can found it in this link: https://github.com/CastellaniDavide/vtools
 
 ---
