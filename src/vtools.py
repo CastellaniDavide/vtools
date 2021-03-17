@@ -13,7 +13,6 @@ class vtools:
 	def __init__ (self, other=None):
 		"""Where it all begins
 		"""
-		print(argv)
 		self.setup(other)
 		self.get_machines()
 		try:
@@ -28,7 +27,7 @@ class vtools:
 		# Define main variabiles
 		self.verbose = True
 		self.csv = True
-		self.vboxmanage = '"C:/Program Files/Oracle/VirtualBox/vboxmanage"' if "--choco" in argv or "--choco" == other else "\"C:/Program Files/Oracle/VirtualBox/VBoxManage.exe\""
+		self.vboxmanage = '"C:/Program Files/Oracle/VirtualBox/vboxmanage"' if "--choco" in argv or "--choco" == other else "vboxmanage.exe"
 
 		# Define log
 		self.log = tabular_log(os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "log", "trace.log") if "--choco" in argv or "--choco" == other else "trace.log", title = "vtools" ,verbose = self.verbose)
