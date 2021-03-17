@@ -14,7 +14,7 @@ setup(
       packages = ['src'],
       python_requires=">=3.6",
       platforms="linux_distibution",
-      install_requires=["tabular_log"],
+      install_requires=["tabular-log"],
       zip_safe=True,
       entry_points = {
         'console_scripts': [
