@@ -10,10 +10,11 @@ __author__ = "help@castellanidavide.it"
 __version__ = "1.0 2021-3-16"
 
 class vtools:
-	def __init__ (self):
+	def __init__ (self, other=None):
 		"""Where it all begins
 		"""
-		self.setup()
+		print(argv)
+		self.setup(other)
 		self.get_machines()
 		try:
 			self.core()
@@ -21,22 +22,22 @@ class vtools:
 			print("Error: make sure you have installed vbox on your PC")
 		print(self.vmachines)
 
-	def setup(self):
+	def setup(self, other):
 		"""Setup
 		"""
 		# Define main variabiles
 		self.verbose = True
 		self.csv = True
-		self.vboxmanage = "C:/Program Files/Oracle/VirtualBox/vboxmanage" if "--choco" in argv else "vboxmanage"
+		self.vboxmanage = "C:/Program Files/Oracle/VirtualBox/vboxmanage" if "--choco" in argv or "--choco" == other else "vboxmanage"
 
 		# Define log
-		self.log = tabular_log(os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "log", "trace.log") if "--choco" in argv else "~/trace.log", title = "vtools" ,verbose = self.verbose)
+		self.log = tabular_log(os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "log", "trace.log") if "--choco" in argv or "--choco" == other else "trace.log", title = "vtools" ,verbose = self.verbose)
 		self.log.print("Created log")
 
 		if self.csv:
 			# Define files
-			self.OS = os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "flussi", "OS.csv") if "--choco" in argv else "~/OS.csv"
-			self.net = os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "flussi", "net.csv") if "--choco" in argv else "~/net.csv"
+			self.OS = os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "flussi", "OS.csv") if "--choco" in argv or "--choco" == other else "OS.csv"
+			self.net = os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "flussi", "net.csv") if "--choco" in argv or "--choco" == other else "net.csv"
 			self.OSheader = "PC_name,OS"
 			self.net_header = "PC_name,network_card_name,V4,MAC,Attachment"
 			self.log.print("Defined CSV files' infos")
