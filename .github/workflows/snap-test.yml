@@ -19,6 +19,7 @@ jobs:
         pip install flake8 pytest
         if [ -f requirements/requirements.txt ]; then pip install -r requirements/requirements.txt; fi
         sudo apt install snapd tree
+        sudo snap install --classic snapcraft
     - name: Build snap
       run: |
         snapcraft
