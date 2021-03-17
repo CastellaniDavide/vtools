@@ -141,10 +141,10 @@ class vtools:
 		self.log.print("Getted attachments")
 		return attachments
 
-def laucher():
+def laucher(other=None):
 	"""Lanch all
 	"""
-	vtools()
+	vtools(other)
 		
 if __name__ == "__main__":
 	laucher()
