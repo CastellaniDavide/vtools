@@ -20,6 +20,9 @@ jobs:
         if [ -f requirements/requirements.txt ]; then pip install -r requirements/requirements.txt; fi
         sudo apt install snapd tree
         sudo snap install --classic snapcraft
+        sudo snap install multipass
+        multipass launch --name foo
+        multipass exec foo -- lsb_release -a
     - name: Build snap
       run: |
         snapcraft
