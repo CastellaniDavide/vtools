@@ -15,7 +15,7 @@ setup(
       packages = ['src'],
       python_requires=">=3.6",
       platforms="linux_distibution",
-      install_requires=[i for i in get("https://raw.githubusercontent.com/CastellaniDavide/pypi-template/master/requirements/requirements.txt").text.split("\n") if not "#" in i and i != ''],
+      install_requires=[i for i in get("https://raw.githubusercontent.com/CastellaniDavide/vtools/master/requirements/requirements.txt").text.split("\n") if not "#" in i and i != ''],
       zip_safe=True,
       entry_points = {
         'console_scripts': [
