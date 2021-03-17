@@ -62,7 +62,6 @@ jobs:
         choco install vtools -d-v -s . --pre -y --force
 
   publish-choco:
-    needs: test-choco
     runs-on: windows-latest
     steps:
     - uses: actions/checkout@v2
@@ -75,4 +74,4 @@ jobs:
         cd choco
         choco apikey --key ${{ secrets.CHOCO_APIKEY }} --source https://push.chocolatey.org/
         choco pack
-        choco push .
+        choco push vtools.1.0.nupkg
