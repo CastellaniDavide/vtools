@@ -8,12 +8,19 @@ class vtools:
 	def __init__ (self):
 		"""Where it all begins
 		"""
+		vbox = "C:\Program Files\Oracle\VirtualBox"
+
 		print(vtools.vtools())
 	
 	def vtools():
 		"""vtools first funtion
 		"""
 		return "vtools" #for the test (see test_vtools.py)
+
+def laucher():
+	"""Lanch all
+	"""
+	vtools()
 		
 if __name__ == "__main__":
 	vtools()
