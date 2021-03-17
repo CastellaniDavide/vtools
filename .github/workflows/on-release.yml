@@ -1,4 +1,4 @@
-name: Test Pypi on every release
+name: Test on every release
 
 on:
   create:
