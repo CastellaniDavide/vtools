@@ -8,12 +8,12 @@ grade: stable
 confinement: strict
 
 apps:
-  manage-project:
+  vtools:
     command: bin/vtools --snap
     plugs: [home,network-bind]
 
 parts:
-  manage-project:
+  vtools:
     plugin: python
     python-version: python3
     source: .
