@@ -1,5 +1,6 @@
 """vtools
 """
+from sys import argv
 
 __author__ = "help@castellanidavide.it"
 __version__ = "1.0 2021-3-16"
@@ -9,8 +10,7 @@ class vtools:
 		"""Where it all begins
 		"""
 		vbox = "C:\Program Files\Oracle\VirtualBox"
-
-		print(vtools.vtools())
+		print(argv)
 	
 	def vtools():
 		"""vtools first funtion
