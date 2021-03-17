@@ -15,7 +15,7 @@ apps:
 parts:
   manage-project:
     plugin: python
-    python-version: python3
+    python-version: python38
     source: .
     stage-packages: [ncbi-blast+]
     python-packages:
