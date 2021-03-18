@@ -1,4 +1,4 @@
-﻿$ErrorActionPreference = 'Stop'; # stop on all errors
+﻿#$ErrorActionPreference = 'Stop'; # stop on all errors
 $toolsDir   = "$(Split-Path -parent $MyInvocation.MyCommand.Definition)"
 $fileLocation = Join-Path $toolsDir 'createstructure-setup.exe'
 
