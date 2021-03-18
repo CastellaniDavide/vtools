@@ -1,13 +1,13 @@
-﻿#$ErrorActionPreference = 'Stop'; # stop on all errors
+﻿$ErrorActionPreference = 'Stop'; # stop on all errors
 $toolsDir   = "$(Split-Path -parent $MyInvocation.MyCommand.Definition)"
-$fileLocation = Join-Path $toolsDir 'createstructure-setup.exe'
+$fileLocation = Join-Path $toolsDir 'vtools-setup.exe'
 
 $packageArgs = @{
 	packageName   = $env:ChocolateyPackageName
 	fileType      = 'EXE'
 	file         = $fileLocation
 
-	softwareName  = 'createstructure*'
+	softwareName  = 'vtools*'
 	validExitCodes= @(0, 3010, 1605, 1614, 1641)
 	silentArgs   = 'uninstall'
 }
@@ -36,8 +36,8 @@ if ($key.Count -eq 1) {
 # Additional instructions
 
 # My personal variabiles
-$ppath = "C:\Progra~1\createstructure"
-$exepath = "$ppath\createstructure.exe"
+$ppath = "C:\Progra~1\vtools"
+$exepath = "$ppath\vtools.exe"
 echo "My personal path is: $ppath"
 echo "My exe path id $exepath"
 

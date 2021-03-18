@@ -7,9 +7,9 @@
     <authors>Castellani Davide</authors>
     <projectUrl>https://github.com/CastellaniDavide/vtools</projectUrl>
     <iconUrl>https://cdn.statically.io/gh/CastellaniDavide/vtools/main/docs/logo.png</iconUrl>
-    <tags>vtools</tags>
+    <tags>vtools vbox</tags>
     <description>
-      With this program, you can easily create a repository on GitHub with a basic template, personalized for your use. To see more visit: https://github.com/CastellaniDavide/vtools/
+      Manage vitual machines, getting some informations (eg. OS).
     </description>
     
     <dependencies>
