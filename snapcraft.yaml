@@ -9,7 +9,7 @@ confinement: strict
 
 apps:
   vtools:
-    command: bin/vtools --snap
+    command: bin/vtools
     plugs: [home,network-bind]
 
 parts:

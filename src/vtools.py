@@ -27,16 +27,16 @@ class vtools:
 		# Define main variabiles
 		self.verbose = True
 		self.csv = True
-		self.vboxmanage = '"C:/Program Files/Oracle/VirtualBox/vboxmanage"' if "--choco" in argv or "--choco" == other else "vboxmanage.exe"
+		self.vboxmanage = '"C:\Work\VBoxManage"' if os.name == 'nt' else "vboxmanage.exe"
 
 		# Define log
-		self.log = tabular_log(os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "log", "trace.log") if "--choco" in argv or "--choco" == other else "trace.log", title = "vtools" ,verbose = self.verbose)
+		self.log = tabular_log("C:/Program Files/vtools/trace.log" if os.name == 'nt' else "~\trace.log", title = "vtools" ,verbose = self.verbose)
 		self.log.print("Created log")
 
 		if self.csv:
 			# Define files
-			self.OS = "OS.csv" #os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "flussi", "OS.csv") if "--choco" in argv or "--choco" == other else "OS.csv"
-			self.net = "net.csv" #os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "flussi", "net.csv") if "--choco" in argv or "--choco" == other else "net.csv"
+			self.OS = "OS.csv" #os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "flussi", "OS.csv") if os.name == 'nt' else "OS.csv"
+			self.net = "net.csv" #os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "flussi", "net.csv") if os.name == 'nt' else "net.csv"
 			self.OSheader = "PC_name,OS"
 			self.net_header = "PC_name,network_card_name,V4,MAC,Attachment"
 			self.log.print("Defined CSV files' infos")
