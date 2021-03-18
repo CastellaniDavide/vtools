@@ -2,8 +2,8 @@ from setuptools import setup
 import sys,os
 from requests import get
 setup(
-      name='vtools',
-      version="1.0", # Lastest release
+      name='vtoolscd',
+      version="0.1", # Lastest release
       description="vtools",
       long_description="Manage vitual machines, getting some informations (eg. OS).",
       long_description_content_type="text/markdown",
