@@ -27,7 +27,7 @@ class vtools:
 		# Define main variabiles
 		self.verbose = True
 		self.csv = True
-		self.vboxmanage = '"C:\Work\VBoxManage"' if os.name == 'nt' else "vboxmanage.exe"
+		self.vboxmanage = '"C:\Work\VBoxManage"' if os.name == 'nt' else "vboxmanage"
 
 		# Define log
 		self.log = tabular_log("C:/Program Files/vtools/trace.log" if os.name == 'nt' else "~\trace.log", title = "vtools" ,verbose = self.verbose)
