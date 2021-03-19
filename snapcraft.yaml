@@ -18,7 +18,6 @@ parts:
     python-version: python3
     source: .
     stage-packages: [ncbi-blast+]
-    build-packages: [virtualbox]
     python-packages:
       - requests
       - tabular-log
