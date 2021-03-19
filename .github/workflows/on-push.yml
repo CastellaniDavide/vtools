@@ -62,10 +62,11 @@ jobs:
         pip install -r requirements/requirements.txt
         sudo apt install snapd tree
         sudo snap install --classic snapcraft
-        sudo snap install multipass
+        sudo snap install --classic multipass
     - name: Build
       run: |
-        sudo snapcraft prime --shell
+        sudo snap run multipass launch
+        snapcraft prime --shell
         tree
   
   test-choco:
