@@ -108,13 +108,16 @@ class vtools:
 	def get_output(self, array):
 		""" Gets the output by the shell
 		"""
-		cmd = self.vboxmanage
-		for i in array:
-			if " " in i:
-				i = "'" + i + "'"
-			cmd += " "  + i
+		if os.name == 'nt':
+			cmd = self.vboxmanage
+			for i in array:
+				if " " in i:
+					i = "'" + i + "'"
+				cmd += " "  + i
 
-		return vtools.remove_b(subprocess.check_output(cmd, shell=False))
+			return vtools.remove_b(subprocess.check_output(cmd, shell=False))
+		else:
+			return vtools.remove_b(subprocess.Popen([self.vboxmanage] + array, stdout=subprocess.PIPE, stderr=subprocess.PIPE).communicate()[0])
 
 	def get_os(self, machine_name):
 		""" Gets the vitual machine os
