@@ -62,6 +62,7 @@ jobs:
         pip install -r requirements/requirements.txt
         sudo apt install snapd tree
         sudo snap install --classic snapcraft
+        sudo snap install multipass
     - name: Build
       run: |
         snapcraft prime --shell
