@@ -1,4 +1,4 @@
-﻿# My personal variabiles
+﻿# Variabiles
 $toolsDir   = "$(Split-Path -parent $MyInvocation.MyCommand.Definition)"
 $ppath = "C:\Progra~1\vtools"
 $exepath = "$ppath\vtools.exe"
@@ -17,3 +17,6 @@ if ($new_path -notlike "*$ppath*")
 	$new_path = $new_path.Replace(";;", ";")
 	Set-ItemProperty -Path 'Registry::HKEY_LOCAL_MACHINE\System\CurrentControlSet\Control\Session Manager\Environment' -Name PATH -Value $new_path
 }
+
+# Installing pypi
+pip.exe install vtoolscd==0.1

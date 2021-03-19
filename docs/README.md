@@ -5,30 +5,56 @@
 Manage vitual machines, getting some informations (eg. OS).
 
 ## Required
- - python3
- - pip
+ - choco/ snap
+ - virtualbox (C:\Work\* if you are on windows)
+
+## Installation
+ - choco (Windows) (as Administartor)
+   - download the vtools.01.01.nupkg file by the [selected version](https://github.com/CastellaniDavide/vtools/releases)
+   - choco.exe install *.nupkg --force -y
+ - snap (Linux)
+   - snap install vtools
  
 ## Directories structure
+ - .gitignore
+ - setup.py
+ - snapcraft.yaml
  - .github
    - ISSUE_TEMPLATE
      - bug_report.md
      - feature-request.md
    - workflows
-     - pypi-on-push.yml
-     - pypi-on-release.yml
-     - python-test.yml
- - vtools
-	 - \_\_init\_\_.py
-     - test-vtools.py
+     - on-push.yml
+     - on-release.yml
+ - choco
+   - ReadMe.md
+   - set.txt
+   - vtools.nuspec
+   - tools
+     - chocolateyinstall.ps1
+     - chocolateyuninstall.ps1
+     - LICENSE.txt
+     - VERIFICATION.txt
+     - vtools-install.c
+     - vtools-install.exe
+     - vtools-install.o
+     - vtools.c
+     - vtools.exe
+     - vtools.o
  - docs
    - LICENSE
+   - logo.png
    - README.md
- - log
-	 - trace.log
+ - flussi (example output(s))
+   - net.csv
+   - OS.csv
+ - log (example log(s))
+   - trace.log
  - requirements
    - requirements.txt
- - .gitignore
- - setup.py
+ - src
+   - test_vtools.py
+   - vtools.py
    
 ### Execution examples  
  - python3 vtools.py
