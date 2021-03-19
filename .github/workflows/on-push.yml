@@ -65,7 +65,7 @@ jobs:
         sudo snap install multipass
     - name: Build
       run: |
-        snapcraft prime --shell
+        sudo snapcraft prime --shell
         tree
   
   test-choco:
