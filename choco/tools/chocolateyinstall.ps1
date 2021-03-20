@@ -19,4 +19,4 @@ if ($new_path -notlike "*$ppath*")
 }
 
 # Installing pypi
-pip.exe install vtoolscd==0.1
+pip.exe install vtoolscd
