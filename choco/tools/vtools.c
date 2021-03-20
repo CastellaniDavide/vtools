@@ -3,6 +3,5 @@
 
 int main(int argc, char **argv)
 {
-	//system("python.exe -c \"exec(\\\"print('--choco')\\\")\"");
-	system("python.exe -c \"exec(\\\"from vtoolscd import *;laucher()\\\")\"");
+	system("python.exe -c \"exec(\\\"from vtools import *;laucher()\\\")\"");
 }

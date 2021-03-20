@@ -3,5 +3,5 @@
 
 int main(int argc, char** argv)
 {
-	system("python3 -c \"exec(\\\"from vtoolscd import *;laucher()\\\")\"");
+	system("python3 -c \"exec(\\\"from vtools import *;laucher()\\\")\"");
 }

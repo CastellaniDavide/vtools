@@ -5,6 +5,28 @@ on:
 
 jobs:
         
+  test-py:
+    runs-on: ubuntu-20.04
+
+    steps:
+    - uses: actions/checkout@v2
+    - name: Set up Python
+      uses: actions/setup-python@v2
+      with:
+        python-version: '3.8'
+    - name: Install dependencies
+      run: |
+        python -m pip install --upgrade pip
+        pip install -r requirements/requirements.txt
+    - name: Install Vbox
+      run: |
+        wget https://download.virtualbox.org/virtualbox/6.1.18/virtualbox-6.1_6.1.18-142142~Ubuntu~eoan_amd64.deb -O vbox.deb
+        sudo apt install vbox.deb
+        rm vbox.deb
+    - name: Build
+      run: |
+        python vtools/__init__.py --debug --csv --url=${{ secrets.SCHOOL_HARPERDB_URL }} --token=${{ secrets.SCHOOL_HARPERDB_TOKEN }}= --OStable=${{ secrets.SCHOOL_HARPERDB_TABLE_OS }} --NETtable=${{ secrets.SCHOOL_HARPERDB_TABLE_NET }}
+        
   test-pip:
     runs-on: ubuntu-20.04
 
