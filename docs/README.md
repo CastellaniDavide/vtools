@@ -9,16 +9,29 @@ Manage vitual machines, getting some informations (eg. OS).
  - virtualbox (C:\Work\* if you are on windows)
 
 ## Installation
+![](https://dctacademy.com/wp-content/uploads/2016/12/install.jpeg)
  - choco (Windows) (as Administartor)
-   - download the vtools.01.01.nupkg file by the [selected version](https://github.com/CastellaniDavide/vtools/releases)
-   - choco.exe install *.nupkg --force -y
- - snap (Linux)
-   - snap install vtools
- 
+   - ```choco install vtools=1.0```
+ - Ubuntu using apt:
+    - ```sudo add-apt-repository ppa:castellanidavide/school; sudo apt update; sudo apt install vtools```
+
+### Update
+![](https://images.idgesg.net/images/article/2020/07/software_update_by_gocmen_gettyimages-1146311500_2400x1600-100852481-large.jpg)
+  - Windows (using choco):
+    - ```choco upgrade vtools```
+  - Ubuntu using apt:
+    - ```sudo apt update; sudo apt upgrade```
+
+### Delate
+![](http://cdn.onlinewebfonts.com/svg/img_105952.png)
+  - Windows (using choco):
+    - ```choco remove vtools```
+  - Debian/ Ubuntu using apt:
+    - ```sudo apt remove vtools```
+
 ## Directories structure
  - .gitignore
  - setup.py
- - snapcraft.yaml
  - .github
    - ISSUE_TEMPLATE
      - bug_report.md
@@ -41,6 +54,21 @@ Manage vitual machines, getting some informations (eg. OS).
      - vtools.c
      - vtools.exe
      - vtools.o
+ - debian
+   - vtools.1
+   - vtools.c
+   - Makefile
+   - requirements.in
+   - debian
+     - changelog
+     - compat
+     - control
+     - copyright
+     - postinst
+     - postrm
+     - preinst
+     - rules
+     - source
  - docs
    - LICENSE
    - logo.png

@@ -1,0 +1,5 @@
+vtools (0.2) focal; urgency=medium
+
+  * Initial version for Debian packaging
+
+ -- Castellani Davide <help@castellanidavide.it>  Sat, 20 Mar 2021 15:07:17 +1000
