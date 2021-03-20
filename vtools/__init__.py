@@ -38,7 +38,10 @@ class vtools:
 		self.vboxmanage = '"C:\Work\VBoxManage"' if os.name == 'nt' else "vboxmanage"
 
 		# Define log
-		self.log = tabular_log("C:/Program Files/vtools/trace.log" if os.name == 'nt' else "~/trace.log", title = "vtools" ,verbose = self.verbose)
+		try:
+			self.log = tabular_log("C:/Program Files/vtools/trace.log" if os.name == 'nt' else "~/trace.log", title = "vtools" ,verbose = self.verbose)
+		except:
+			self.log = tabular_log("trace.log", title = "vtools" ,verbose = self.verbose)
 		self.log.print("Created log")
 
 		# Headers
