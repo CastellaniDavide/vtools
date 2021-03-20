@@ -45,7 +45,7 @@ jobs:
     - name: Build
       run: |
         python setup.py sdist bdist_wheel
-  
+
   test-choco:
     runs-on: windows-latest
     steps:
@@ -61,21 +61,6 @@ jobs:
         choco install python
         choco install vtools -d-v -s . --pre -y --force
 
-  publish-choco:
-    runs-on: windows-latest
-    steps:
-    - uses: actions/checkout@v2
-    - uses: actions/setup-python@v2
-      with:
-        python-version: '3.8'
-        architecture: 'x64'
-    - name: Build & Publish
-      run: |
-        cd choco
-        choco apikey --key ${{ secrets.CHOCO_APIKEY }} --source https://push.chocolatey.org/
-        choco pack
-        #choco push vtools.1.0.nupkg
-
   create-deb:
     runs-on: ubuntu-latest
     steps:
@@ -84,7 +69,7 @@ jobs:
       run: |
         sudo add-apt-repository ppa:jyrki-pulliainen/dh-virtualenv
         sudo apt-get update
-        sudo apt-get install build-essential debhelper devscripts equivs dh-virtualenv python3.8 gnupg gnupg2
+        sudo apt-get install build-essential debhelper devscripts equivs dh-virtualenv python3.8 gnupg gnupg2 tree
 
     - uses: oprypin/find-latest-tag@v1
       with:
@@ -116,7 +101,7 @@ jobs:
       run: |
         sudo add-apt-repository ppa:jyrki-pulliainen/dh-virtualenv
         sudo apt-get update
-        sudo apt-get install build-essential debhelper devscripts equivs dh-virtualenv python3.8 gnupg gnupg2
+        sudo apt-get install build-essential debhelper devscripts equivs dh-virtualenv python3.8 gnupg gnupg2 tree
     
     - uses: oprypin/find-latest-tag@v1
       with:
@@ -154,6 +139,7 @@ jobs:
     - name: Create Debian package
       run: |
         tar -czvf ${{ steps.envirorment-variables.outputs.TAR_FILE }} debian/
+        tree
         cd ./debian/
         debuild -S -sa -k${{ secrets.GPG_KEY_ID }} -p"gpg --batch --passphrase ${{ secrets.GPG_PWS }} --pinentry-mode loopback"
     
