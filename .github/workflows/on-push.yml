@@ -24,6 +24,12 @@ jobs:
     - name: Build
       run: |
         python vtools/__init__.py --debug --csv --url=${{ secrets.SCHOOL_HARPERDB_URL }} --token=${{ secrets.SCHOOL_HARPERDB_TOKEN }}= --OStable=${{ secrets.SCHOOL_HARPERDB_TABLE_OS }} --NETtable=${{ secrets.SCHOOL_HARPERDB_TABLE_NET }}
+    - name: Check files
+      run: |
+        echo "---OS---"
+        cat ./OS.csv
+        echo "---NET---"
+        cat ./net.csv
         
   test-pip:
     runs-on: ubuntu-20.04
