@@ -1,3 +1,9 @@
+vtools (0.7) focal; urgency=medium
+
+  * Fixed a bug
+
+ -- Castellani Davide <help@castellanidavide.it>  Sat, 20 Mar 2021 23:17:15 +1000
+ 
 vtools (0.6) focal; urgency=medium
 
   * Fixed few bugs
