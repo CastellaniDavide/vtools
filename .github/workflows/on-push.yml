@@ -20,9 +20,7 @@ jobs:
         pip install -r requirements/requirements.txt
     - name: Install Vbox
       run: |
-        wget https://download.virtualbox.org/virtualbox/6.1.18/virtualbox-6.1_6.1.18-142142~Ubuntu~eoan_amd64.deb -O vbox.deb
-        sudo apt install vbox.deb
-        rm vbox.deb
+        sudo apt install virtualbox
     - name: Build
       run: |
         python vtools/__init__.py --debug --csv --url=${{ secrets.SCHOOL_HARPERDB_URL }} --token=${{ secrets.SCHOOL_HARPERDB_TOKEN }}= --OStable=${{ secrets.SCHOOL_HARPERDB_TABLE_OS }} --NETtable=${{ secrets.SCHOOL_HARPERDB_TABLE_NET }}
