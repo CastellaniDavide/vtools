@@ -9,20 +9,19 @@ from json import loads, dumps
 import requests
 
 __author__ = "help@castellanidavide.it"
-__version__ = "01.01 2021-3-16"
+__version__ = "01.01 2021-3-21"
 
 class vtools:
 	def __init__ (self, verbose=False, csv=False, dbenable=False, dburl=None, dbtoken=None, dbOStable=None, dbNETtable=None):
 		"""Where it all begins
 		"""
-		self.setup(verbose, csv, dbenable, dburl, dbtoken, dbOStable, dbNETtable)
-		self.get_machines()
-		self.core()
+		self.setup(verbose, csv, dbenable, dburl, dbtoken, dbOStable, dbNETtable) # Setup all the requirements
+
 		try:
-			self.core()
+			self.get_machines() # Get all disponible virtualmachines
+			self.core() # Get and elaborate functions
 		except:
 			print("Error: make sure you have installed vbox on your PC")
-		print(self.vmachines)
 
 	def setup(self, verbose, csv, dbenable, dburl, dbtoken, dbOStable, dbNETtable):
 		"""Setup
@@ -39,7 +38,7 @@ class vtools:
 
 		# Define log
 		try:
-			self.log = tabular_log("C:/Program Files/vtools/trace.log" if os.name == 'nt' else "~/trace.log", title = "vtools" ,verbose = self.verbose)
+			self.log = tabular_log("C:/Program Files/vtools/trace.log" if os.name == 'nt' else "~/trace.log", title = "vtools" , verbose = self.verbose)
 		except:
 			self.log = tabular_log("trace.log", title = "vtools" ,verbose = self.verbose)
 		self.log.print("Created log")
@@ -49,6 +48,7 @@ class vtools:
 		self.net_header = "PC_name,network_card_name,IPv4,MAC,Attachment"
 		self.log.print("Headers inizialized")
 
+		# If selected setup csv
 		if self.csv:
 			# Define files
 			self.OS = "OS.csv"
@@ -73,11 +73,15 @@ class vtools:
 	def core(self):
 		"""Core of all project
 		"""
-		for PC, PCcode in zip(self.vmachines, self.vmachinescodes):
+		for PC, PCcode in zip(self.vmachines, self.vmachinescodes): # For every PC
 			try:
-				OS = self.get_os(PCcode)
+				OS = self.get_os(PCcode) # Get OS
+
+				# If CSV enabled write into csv file
 				if self.csv:
 					DictWriter(open(self.OS, 'a+', newline=''), fieldnames=self.OSheader.split(","), restval='').writerow({"PC_name": PC, "OS": OS})
+				
+				# If DB enabled try to insert infos
 				if self.dbenable:
 					try:
 						response = requests.request("POST", f"{self.dburl}", headers={'Content-Type': 'application/json','Authorization': f'''Basic {self.dbtoken}'''}, data=dumps({"operation": "insert", "schema": "dev", "table": self.dbOStable, "records": [{"PC_name": PC, "OS": OS}]}))
@@ -92,9 +96,12 @@ class vtools:
 					net = {"PC_name": PC}
 					for key, value in zip(self.net_header.split(",")[1:], i):
 						net[key] = value
-
+						
+					# If CSV enabled write into csv file
 					if self.csv:
 						DictWriter(open(self.net, 'a+', newline=''), fieldnames=self.net_header.split(","), restval='').writerow(net)
+					
+					# If DB enabled try to insert infos		
 					if self.dbenable:
 						try:
 							response = requests.request("POST", f"{self.dburl}", headers={'Content-Type': 'application/json','Authorization': f'''Basic {self.dbtoken}'''}, data=dumps({"operation": "insert", "schema": "dev", "table": self.dbNETtable, "records": [net]}))
@@ -109,6 +116,7 @@ class vtools:
 	def get_machines(self):
 		"""Get virtual machines' name
 		"""
+		# Some variabiles
 		self.vmachines = []
 		self.vmachinescodes = []
 		temp=""
@@ -116,6 +124,7 @@ class vtools:
 		temp2=""
 		take2=False
 
+		# Get and elaborate the output
 		for i in self.get_output(["list", "vms"]):
 			if i == '"':
 				if take == True:
@@ -138,7 +147,7 @@ class vtools:
 	def get_output(self, array):
 		""" Gets the output by the shell
 		"""
-		if os.name == 'nt':
+		if os.name == 'nt': # If OS == Windows
 			cmd = self.vboxmanage
 			for i in array:
 				if " " in i:
@@ -152,9 +161,9 @@ class vtools:
 	def get_os(self, machine_name):
 		""" Gets the vitual machine os
 		"""
-		_os = self.get_output(["guestproperty", "get", machine_name, "/VirtualBox/GuestInfo/OS/Product"]).replace("Value: ", "").replace("\\n", "").replace("\\r", "")
-		self.log.print(f"Getted OS {_os}")
-		return _os
+		OS = self.get_output(["guestproperty", "get", machine_name, "/VirtualBox/GuestInfo/OS/Product"]).replace("Value: ", "").replace("\\n", "").replace("\\r", "")
+		self.log.print(f"Getted OS {OS}")
+		return OS
 
 	def remove_b(string):
 		"""Removes b'' by string
@@ -198,8 +207,9 @@ class vtools:
 		return attachments
 
 def laucher():
-	""" Read params lauch all
+	""" Lauch all getting the params by the arguments passed on launch
 	"""
+	# Get all aarguments
 	debug = "--debug" in argv or "-d" in argv
 	csv = "--csv" in argv
 	dbenable = dburl = dbtoken = dbOStable = dbNETtable = None
@@ -214,8 +224,7 @@ def laucher():
 		if "--NETtable=" in arg:
 			dbNETtable = arg.replace("--NETtable=", "")
 
-	print(dburl, dbtoken, dbOStable, dbNETtable)
-
+	# Launch the principal part of the code
 	if dburl != None and dbtoken != None and dbOStable != None and dbNETtable != None:
 		vtools(debug, csv, True, dburl, dbtoken, dbOStable, dbNETtable)
 	else:

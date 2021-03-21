@@ -1,3 +1,2 @@
 #!/bin/bash
-sudo rm /etc/vtools.conf
 pip uninstall vtools
