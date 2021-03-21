@@ -1,43 +1,103 @@
 ﻿# vtools
-[![GitHub license](https://img.shields.io/badge/license-GNU-green?style=flat)](https://github.com/CastellaniDavide/cpp-vtools/blob/master/LICENSE) ![Author](https://img.shields.io/badge/author-Castellani%20Davide-green?style=flat) ![Version](https://img.shields.io/badge/version-v1.0-blue?style=flat) ![Language Python](https://img.shields.io/badge/language-Python-yellowgreen?style=flat) ![sys.platform supported](https://img.shields.io/badge/OS%20platform%20supported-All-blue?style=flat) [![On GitHub](https://img.shields.io/badge/on%20GitHub-True-green?style=flat&logo=github)](https://github.com/CastellaniDavide/vtools)
+[![GitHub license](https://img.shields.io/badge/license-GNU-green?style=flat)](https://github.com/CastellaniDavide/cpp-vtools/blob/master/LICENSE) ![Author](https://img.shields.io/badge/author-Castellani%20Davide-green?style=flat) ![Version](https://img.shields.io/badge/version-v01.01-blue?style=flat) ![Language Python](https://img.shields.io/badge/language-Python-yellowgreen?style=flat) ![sys.platform supported](https://img.shields.io/badge/OS%20platform%20supported-All-blue?style=flat) [![On GitHub](https://img.shields.io/badge/on%20GitHub-True-green?style=flat&logo=github)](https://github.com/CastellaniDavide/vtools) 
 
 ## Description
 Manage vitual machines, getting some informations (eg. OS).
 
 ## Required
- - python3
- - pip
- 
+ - choco/ snap
+ - virtualbox (C:\Work\* if you are on windows)
+
+## Installation
+![](https://dctacademy.com/wp-content/uploads/2016/12/install.jpeg)
+ - choco (Windows) (as Administartor)
+   - ```choco install vtools=01.01```
+ - Ubuntu using apt:
+    - ```sudo add-apt-repository ppa:castellanidavide/school -y; sudo apt update; sudo apt install vtools -y```
+
+### Update
+![](https://images.idgesg.net/images/article/2020/07/software_update_by_gocmen_gettyimages-1146311500_2400x1600-100852481-large.jpg)
+  - Windows (using choco):
+    - ```choco upgrade vtools```
+  - Ubuntu using apt:
+    - ```sudo apt update; sudo apt upgrade```
+
+### Delate
+![](http://cdn.onlinewebfonts.com/svg/img_105952.png)
+  - Windows (using choco):
+    - ```choco remove vtools```
+  - Debian/ Ubuntu using apt:
+    - ```sudo apt remove vtools```
+
 ## Directories structure
+ - .gitignore
+ - setup.py
  - .github
    - ISSUE_TEMPLATE
      - bug_report.md
      - feature-request.md
    - workflows
-     - pypi-on-push.yml
-     - pypi-on-release.yml
-     - python-test.yml
- - vtools
-	 - \_\_init\_\_.py
-     - test-vtools.py
+     - on-push.yml
+     - on-release.yml
+ - choco
+   - ReadMe.md
+   - set.txt
+   - vtools.nuspec
+   - tools
+     - chocolateyinstall.ps1
+     - chocolateyuninstall.ps1
+     - LICENSE.txt
+     - VERIFICATION.txt
+     - vtools-install.c
+     - vtools-install.exe
+     - vtools-install.o
+     - vtools.c
+     - vtools.exe
+     - vtools.o
+ - debian
+   - vtools.1
+   - vtools.c
+   - Makefile
+   - requirements.in
+   - debian
+     - changelog
+     - compat
+     - control
+     - copyright
+     - postinst
+     - postrm
+     - preinst
+     - rules
+     - source
  - docs
    - LICENSE
+   - logo.png
    - README.md
- - log
-	 - trace.log
+ - flussi (example output(s))
+   - net.csv
+   - OS.csv
+ - log (example log(s))
+   - trace.log
  - requirements
    - requirements.txt
- - .gitignore
- - setup.py
+ - src
+   - test_vtools.py
+   - vtools.py
    
 ### Execution examples  
- - python3 vtools.py
- - python3 test_vtools.py
+ - vtools
+   
+### Output location
+ - *.csv (if enabled) in the location where the code was lauched
+ - *.log
+   - C:/Program Files/vtools/* on Windows
+   - ~/* on linux
+   - current location (if you didn't lauch the code with the correct rights)
 
 # Changelog
- - [Version_1.0_2021-3-16](#Version_10_2021-3-16)
+ - [Version_01.01_2021-3-21](#Version_0101_2021-3-21)
 
-## Version_1.0_2021-3-16
+## Version_01.01_2021-3-21
  - Initial version
 
 ---
