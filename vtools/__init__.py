@@ -9,7 +9,7 @@ from json import loads, dumps
 import requests
 
 __author__ = "help@castellanidavide.it"
-__version__ = "01.01 2021-3-21"
+__version__ = "01.02 2021-3-21"
 
 class vtools:
 	def __init__ (self, verbose=False, csv=False, dbenable=False, dburl=None, dbtoken=None, dbOStable=None, dbNETtable=None):
