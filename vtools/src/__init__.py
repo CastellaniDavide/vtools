@@ -7,9 +7,10 @@ from csv import DictWriter
 from tabular_log import tabular_log
 from json import loads, dumps
 import requests
+from programGUI import programGUI
 
 __author__ = "help@castellanidavide.it"
-__version__ = "01.02 2021-3-21"
+__version__ = "01.03 2021-04-22"
 
 class vtools:
 	def __init__ (self, verbose=False, csv=False, dbenable=False, dburl=None, dbtoken=None, dbOStable=None, dbNETtable=None):
@@ -209,26 +210,58 @@ class vtools:
 def laucher():
 	""" Lauch all getting the params by the arguments passed on launch
 	"""
-	# Get all aarguments
-	debug = "--debug" in argv or "-d" in argv
-	csv = "--csv" in argv
-	dbenable = dburl = dbtoken = dbOStable = dbNETtable = None
+	# Get all arguments
+	if "--help" in argv or "-h" in argv:
+		print("To get an help to know how to use this program write into the shell: 'man agentless', only for Linux.")
+	elif "--batch" in argv or "-b" in argv:
+		debug = "--debug" in argv or "-d" in argv
+		csv = "--csv" in argv
+		dbenable = dburl = dbtoken = dbOStable = dbNETtable = None
 
-	for arg in argv:
-		if "--url=" in arg:
-			dburl = arg.replace("--url=", "")
-		if "--token=" in arg:
-			dbtoken = arg.replace("--token=", "")
-		if "--OStable=" in arg:
-			dbOStable = arg.replace("--OStable=", "")
-		if "--NETtable=" in arg:
-			dbNETtable = arg.replace("--NETtable=", "")
+		for arg in argv:
+			if "--url=" in arg:
+				dburl = arg.replace("--url=", "")
+			if "--token=" in arg:
+				dbtoken = arg.replace("--token=", "")
+			if "--OStable=" in arg:
+				dbOStable = arg.replace("--OStable=", "")
+			if "--NETtable=" in arg:
+				dbNETtable = arg.replace("--NETtable=", "")
 
-	# Launch the principal part of the code
-	if dburl != None and dbtoken != None and dbOStable != None and dbNETtable != None:
-		vtools(debug, csv, True, dburl, dbtoken, dbOStable, dbNETtable)
+		# Launch the principal part of the code
+		if dburl != None and dbtoken != None and dbOStable != None and dbNETtable != None:
+			vtools(debug, csv, True, dburl, dbtoken, dbOStable, dbNETtable)
+		else:
+			vtools(debug, csv)
 	else:
-		vtools(debug, csv)
+		gui = programGUI(title="vtools", instructions=[
+														[
+															{"type": "bool", "title": "Want you to run it in the verbose mode?", "id": "verbose"},
+															{"type": "bool", "title": "Want you have a csv output?", "id": "csv"}
+														],
+														[
+															{"type": "text", "title": "Insert url:", "id": "url"},
+															{"type": "text", "title": "Insert token:", "id": "token"},
+															{"type": "text", "title": "Insert OS table:", "id": "OStable"},
+															{"type": "text", "title": "Insert NET table:", "id": "NETtable"}
+														]
+													])
+
+		if gui.get_values()["url"] != None and gui.get_values()["token"] != None and gui.get_values()["OStable"] != None and gui.get_values()["NETtable"] != None:
+			vtools(
+				gui.get_values()["verbose"], 
+				gui.get_values()["csv"], 
+				True, 
+				gui.get_values()["url"], 
+				gui.get_values()["token"], 
+				gui.get_values()["OStable"],
+			    gui.get_values()["NETtable"]
+				)
+		else:
+			vtools(
+				gui.get_values()["verbose"], 
+				gui.get_values()["csv"]
+				)
 		
 if __name__ == "__main__":
 	laucher()

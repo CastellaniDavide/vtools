@@ -140,7 +140,6 @@ jobs:
         dput ppa:castellanidavide/school ${{ steps.envirorment-variables.outputs.CHANGES_FILE }}
 
   test-choco:
-    needs: pypi-install-test
     runs-on: windows-latest
     steps:
     - uses: actions/checkout@v2
@@ -148,21 +147,9 @@ jobs:
       with:
         python-version: '3.8'
         architecture: 'x64'
-
-    - uses: oprypin/find-latest-tag@v1
-      with:
-        repository: CastellaniDavide/vtools
-        releases-only: true 
-      id : latest
-    - name: Set envirorment varible(s)
+    - name: Install dependences
       run: |
-        echo "::set-output name=PUSH_PATH::$(curl -sL https://api.github.com/repos/CastellaniDavide/vtools/releases/latest | jq -r '.upload_url')"  
-        echo "::set-output name=VERSION_TAG::$(echo ${{ steps.latest.outputs.tag }} | sed 's/v//')"
-        echo "::set-output name=TAR_FILE::vtools_$(echo ${{ steps.latest.outputs.tag }} | sed 's/v//').orig.tar.gz"
-        echo "::set-output name=DEB_FILE::vtools_$(echo ${{ steps.latest.outputs.tag }} | sed 's/v//')_amd64.deb"
-        echo "::set-output name=CHANGES_FILE::vtools_$(echo ${{ steps.latest.outputs.tag }} | sed 's/v//')_source.changes"
-        echo "::set-output name=NUPKG_FILE::vtools.$(echo ${{ steps.latest.outputs.tag }} | sed 's/v//').nupkg"
-        echo "::set-output name=NUPKG_FILE_PATH::./choco/vtools_$(echo ${{ steps.latest.outputs.tag }} | sed 's/v//').nupkg" 
+        pip3 install install pyinstaller vtoolscd
     - name: Create .exe files
       run: |
         cd .\choco\tools
@@ -173,10 +160,14 @@ jobs:
         Copy-Item ".\docs\README.md" -Destination ".\choco"
     - name: Try to build
       run: |
-        cd choco 
+        cd choco
         choco pack
-        choco install python
         choco install vtools -d-v -s . --pre -y --force
+    - name: Try to run
+      run: |
+        C:\Progra~1\vtools\vtools.exe --csv
+        dir
+        dir C:\Progra~1\vtools\
 
   publish-choco:
     needs: test-choco
