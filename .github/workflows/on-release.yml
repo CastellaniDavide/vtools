@@ -22,7 +22,7 @@ jobs:
         pip install setuptools wheel twine
     - name: ./src => ./
       run: |
-        cd agentless
+        cd vtools
         mv src/__init__.py ./__init__.py
         rmdir src
     - name: Build and publish

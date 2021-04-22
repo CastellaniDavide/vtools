@@ -47,7 +47,7 @@ jobs:
         pip install -r requirements/requirements.txt
     - name: ./src => ./
       run: |
-        cd agentless
+        cd vtools
         mv src/__init__.py ./__init__.py
         rmdir src
     - name: Build
