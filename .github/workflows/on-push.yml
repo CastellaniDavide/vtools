@@ -80,8 +80,9 @@ jobs:
         choco install vtools -d-v -s . --pre -y --force
     - name: Try to run
       run: |
-        vtools.exe --csv
+        C:\Progra~1\vtools\vtools.exe --csv
         dir
+        dir C:\Progra~1\vtools\
 
   create-deb:
     runs-on: ubuntu-latest
