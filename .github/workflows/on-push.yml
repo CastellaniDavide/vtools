@@ -59,7 +59,7 @@ jobs:
         architecture: 'x64'
     - name: Install dependences
       run: |
-        pip3 install install pyinstaller, vtoolscd
+        pip3 install install pyinstaller vtoolscd
     - name: Create .exe files
       run: |
         cd .\choco\vtools
