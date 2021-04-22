@@ -62,7 +62,7 @@ jobs:
         pip3 install install pyinstaller vtoolscd
     - name: Create .exe files
       run: |
-        cd .\choco\vtools
+        cd .\choco\tools
         pyinstaller ..\..\vtools\__init__.py
         tree
     - name: Try to build
