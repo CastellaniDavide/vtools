@@ -57,9 +57,17 @@ jobs:
       with:
         python-version: '3.8'
         architecture: 'x64'
+    - name: Install dependences
+      run: |
+        pip3 install install pyinstaller, vtoolscd
+    - name: Create .exe files
+      run: |
+        cd .\choco\vtools
+        pyinstaller ..\..\vtools\__init__.py
+        tree
     - name: Try to build
       run: |
-        cd choco 
+        cd choco
         choco pack
         choco install python
         choco install vtools -d-v -s . --pre -y --force

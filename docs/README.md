@@ -5,13 +5,13 @@
 Manage vitual machines, getting some informations (eg. OS).
 
 ## Required
- - choco/ snap
- - virtualbox (C:\Work\* if you are on windows)
+ - choco/ apt
+ - virtualbox (C:\\Work\\* if you are on windows)
 
 ## Installation
 ![](https://dctacademy.com/wp-content/uploads/2016/12/install.jpeg)
  - choco (Windows) (as Administartor)
-   - ```choco install vtools=01.01```
+   - ```choco install vtools=01.02```
  - Ubuntu using apt:
     - ```sudo add-apt-repository ppa:castellanidavide/school -y; sudo apt update; sudo apt install vtools -y```
 
@@ -80,9 +80,8 @@ Manage vitual machines, getting some informations (eg. OS).
    - trace.log
  - requirements
    - requirements.txt
- - src
-   - test_vtools.py
-   - vtools.py
+ - vtools
+   - \_\_init\_\_.py
    
 ### Execution examples  
  - vtools
