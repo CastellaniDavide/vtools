@@ -78,6 +78,10 @@ jobs:
         cd choco
         choco pack
         choco install vtools -d-v -s . --pre -y --force
+    - name: Try to run
+      run: |
+        vtools.exe --csv
+        dir
 
   create-deb:
     runs-on: ubuntu-latest
