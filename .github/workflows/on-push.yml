@@ -22,7 +22,7 @@ jobs:
         sudo apt install virtualbox
     - name: Build
       run: |
-        python vtools/src/__init__.py --debug --csv --url=${{ secrets.SCHOOL_HARPERDB_URL }} --token=${{ secrets.SCHOOL_HARPERDB_TOKEN }}= --OStable=${{ secrets.SCHOOL_HARPERDB_TABLE_OS }} --NETtable=${{ secrets.SCHOOL_HARPERDB_TABLE_NET }}
+        python vtools/src/__init__.py -b --debug --csv --url=${{ secrets.SCHOOL_HARPERDB_URL }} --token=${{ secrets.SCHOOL_HARPERDB_TOKEN }}= --OStable=${{ secrets.SCHOOL_HARPERDB_TABLE_OS }} --NETtable=${{ secrets.SCHOOL_HARPERDB_TABLE_NET }}
     - name: Check files
       run: |
         echo "---OS---"
