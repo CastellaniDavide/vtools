@@ -20,6 +20,11 @@ jobs:
       run: |
         python -m pip install --upgrade pip
         pip install setuptools wheel twine
+    - name: ./src => ./
+      run: |
+        cd agentless
+        mv src/__init__.py ./__init__.py
+        rmdir src
     - name: Build and publish
       env:
         STACKMANAGER_VERSION: ${{ github.event.release.tag_name }}
@@ -157,7 +162,15 @@ jobs:
         echo "::set-output name=DEB_FILE::vtools_$(echo ${{ steps.latest.outputs.tag }} | sed 's/v//')_amd64.deb"
         echo "::set-output name=CHANGES_FILE::vtools_$(echo ${{ steps.latest.outputs.tag }} | sed 's/v//')_source.changes"
         echo "::set-output name=NUPKG_FILE::vtools.$(echo ${{ steps.latest.outputs.tag }} | sed 's/v//').nupkg"
-        echo "::set-output name=NUPKG_FILE_PATH::./choco/vtools_$(echo ${{ steps.latest.outputs.tag }} | sed 's/v//').nupkg"
+        echo "::set-output name=NUPKG_FILE_PATH::./choco/vtools_$(echo ${{ steps.latest.outputs.tag }} | sed 's/v//').nupkg" 
+    - name: Create .exe files
+      run: |
+        cd .\choco\tools
+        pyinstaller ..\..\vtools\src\__init__.py
+        tree
+    - name: copy README.md
+      run: |
+        Copy-Item ".\docs\README.md" -Destination ".\choco"
     - name: Try to build
       run: |
         cd choco 
@@ -190,6 +203,14 @@ jobs:
         echo "::set-output name=NUPKG_FILE::vtools.$(echo ${{ steps.latest.outputs.tag }} | sed 's/v//').nupkg"
         echo "::set-output name=NUPKG_FILE_PATH::./choco/vtools_$(echo ${{ steps.latest.outputs.tag }} | sed 's/v//').nupkg"
       id: envirorment-variables
+    - name: Create .exe files
+      run: |
+        cd .\choco\tools
+        pyinstaller ..\..\vtools\src\__init__.py
+        tree
+    - name: copy README.md
+      run: |
+        Copy-Item ".\docs\README.md" -Destination ".\choco"
     - name: Build & Publish
       run: |
         cd choco
@@ -197,7 +218,6 @@ jobs:
         choco pack
         choco push .\${{ steps.envirorment-variables.outputs.NUPKG_FILE }} --source https://push.chocolatey.org/
         move ./* ../
-
     - name: Upload nupkg
       uses: actions/upload-release-asset@v1
       env:

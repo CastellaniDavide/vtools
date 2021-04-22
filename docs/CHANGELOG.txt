@@ -1,0 +1,16 @@
+# Changelog
+
+## [01.03] - 2021-03-21
+### Added
+ - 
+### Changed
+ - Fixed a choco bug: now choco runs without any onther dependences
+ - Now the stucture is in the [standard template](https://github.com/marconivr/2020-2022-T-CI/wiki/Structure)
+
+## [01.02] - 2021-03-21
+### Changed
+ - Fixed a choco bug
+
+## [01.01] - 2021-03-21
+### Added
+ - Initial version

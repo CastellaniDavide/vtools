@@ -13,7 +13,6 @@
     </description>
     
     <dependencies>
-      <dependency id="python" />
     </dependencies>
   </metadata>
   <files>

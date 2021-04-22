@@ -1,13 +1,14 @@
 ﻿# Variabiles
 $toolsDir   = "$(Split-Path -parent $MyInvocation.MyCommand.Definition)"
 $ppath = "C:\Progra~1\vtools"
-$exepath = "$ppath\vtools.exe"
+$path = "$ppath\__init__"
 echo "My personal path is: $ppath"
 echo "My exe path id $exepath"
 
-# Set folder
+# Set folder and rename exe file
 New-Item -ItemType Directory -Force -Path $ppath
-Copy-Item "$toolsDir\vtools.exe" "$ppath\vtools.exe"
+Copy-Item -Path "$toolsDir\dist\__init__\*" -Destination "$ppath\" -Recurse
+Rename-Item -Path "$ppath\__init__.exe" -NewName "$ppath\vtools.exe"
 
 # Add Path
 $new_path = (Get-ItemProperty -Path 'Registry::HKEY_LOCAL_MACHINE\System\CurrentControlSet\Control\Session Manager\Environment' -Name PATH).path
@@ -18,5 +19,3 @@ if ($new_path -notlike "*$ppath*")
 	Set-ItemProperty -Path 'Registry::HKEY_LOCAL_MACHINE\System\CurrentControlSet\Control\Session Manager\Environment' -Name PATH -Value $new_path
 }
 
-# Installing pypi
-pip.exe install vtoolscd

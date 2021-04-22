@@ -45,6 +45,11 @@ jobs:
         python -m pip install --upgrade pip
         pip install setuptools wheel twine
         pip install -r requirements/requirements.txt
+    - name: ./src => ./
+      run: |
+        cd agentless
+        mv src/__init__.py ./__init__.py
+        rmdir src
     - name: Build
       run: |
         python setup.py sdist bdist_wheel
@@ -63,8 +68,11 @@ jobs:
     - name: Create .exe files
       run: |
         cd .\choco\tools
-        pyinstaller ..\..\vtools\__init__.py
+        pyinstaller ..\..\vtools\src\__init__.py
         tree
+    - name: copy README.md
+      run: |
+        Copy-Item ".\docs\README.md" -Destination ".\choco"
     - name: Try to build
       run: |
         cd choco

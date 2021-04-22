@@ -48,12 +48,6 @@ Manage vitual machines, getting some informations (eg. OS).
      - chocolateyuninstall.ps1
      - LICENSE.txt
      - VERIFICATION.txt
-     - vtools-install.c
-     - vtools-install.exe
-     - vtools-install.o
-     - vtools.c
-     - vtools.exe
-     - vtools.o
  - debian
    - vtools.1
    - vtools.c
@@ -92,16 +86,6 @@ Manage vitual machines, getting some informations (eg. OS).
    - C:/Program Files/vtools/* on Windows
    - ~/* on linux
    - current location (if you didn't lauch the code with the correct rights)
-
-# Changelog
- - [Version_01.02_2021-3-21](#Version_0102_2021-3-21)
- - [Version_01.01_2021-3-21](#Version_0101_2021-3-21)
-
-## Version_01.02_2021-3-21
- - Fixed a choco bug
-
-## Version_01.01_2021-3-21
- - Initial version
 
 ---
 Made by Castellani Davide 
