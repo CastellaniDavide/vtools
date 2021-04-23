@@ -2,4 +2,4 @@
 
 tabular-log
 requests
-programGUI>=1.2
+programGUI>=1.4

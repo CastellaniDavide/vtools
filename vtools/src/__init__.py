@@ -13,7 +13,14 @@ __author__ = "help@castellanidavide.it"
 __version__ = "01.03 2021-04-22"
 
 class vtools:
-	def __init__ (self, verbose=False, csv=False, dbenable=False, dburl=None, dbtoken=None, dbOStable=None, dbNETtable=None):
+	def __init__ (self, 
+			   verbose=False, 
+			   csv=False, 
+			   dbenable=False, 
+			   dburl=None, 
+			   dbtoken=None, 
+			   dbOStable=None, 
+			   dbNETtable=None):
 		"""Where it all begins
 		"""
 		self.setup(verbose, csv, dbenable, dburl, dbtoken, dbOStable, dbNETtable) # Setup all the requirements
@@ -39,7 +46,11 @@ class vtools:
 
 		# Define log
 		try:
-			self.log = tabular_log("C:/Program Files/vtools/trace.log" if os.name == 'nt' else "~/trace.log", title = "vtools" , verbose = self.verbose)
+			self.log = tabular_log(
+				"C:/Program Files/vtools/trace.log" if os.name == 'nt' else "~/trace.log", 
+				title = "vtools", 
+				verbose = self.verbose
+				)
 		except:
 			self.log = tabular_log("trace.log", title = "vtools" ,verbose = self.verbose)
 		self.log.print("Created log")
@@ -47,6 +58,7 @@ class vtools:
 		# Headers
 		self.OSheader = "PC_name,OS"
 		self.net_header = "PC_name,network_card_name,IPv4,MAC,Attachment"
+		self.shared_files_header = "name,hostPath,writable,mount"
 		self.log.print("Headers inizialized")
 
 		# If selected setup csv
@@ -54,6 +66,7 @@ class vtools:
 			# Define files
 			self.OS = "OS.csv"
 			self.net = "net.csv"
+			self.shared_files = "shared_files.csv"
 			self.log.print("Defined CSV files' infos")
 
 			# Create header if needed
@@ -68,6 +81,12 @@ class vtools:
 					assert(False)
 			except:
 				open(self.net, 'w+').write(self.net_header + "\n")
+
+			try:
+				if open(self.shared_files, 'r+').readline() == "":
+					assert(False)
+			except:
+				open(self.shared_files, 'w+').write(self.shared_files_header + "\n")
 			
 			self.log.print("Inizialized CSV files")
 
@@ -75,23 +94,47 @@ class vtools:
 		"""Core of all project
 		"""
 		for PC, PCcode in zip(self.vmachines, self.vmachinescodes): # For every PC
+			# OS
 			try:
 				OS = self.get_os(PCcode) # Get OS
 
 				# If CSV enabled write into csv file
 				if self.csv:
-					DictWriter(open(self.OS, 'a+', newline=''), fieldnames=self.OSheader.split(","), restval='').writerow({"PC_name": PC, "OS": OS})
+					DictWriter(
+						open(self.OS, 'a+', newline=''), 
+						fieldnames=self.OSheader.split(","), 
+						restval='').writerow({
+								"PC_name": PC, 
+								"OS": OS
+							})
 				
 				# If DB enabled try to insert infos
 				if self.dbenable:
 					try:
-						response = requests.request("POST", f"{self.dburl}", headers={'Content-Type': 'application/json','Authorization': f'''Basic {self.dbtoken}'''}, data=dumps({"operation": "insert", "schema": "dev", "table": self.dbOStable, "records": [{"PC_name": PC, "OS": OS}]}))
+						response = requests.request(
+							"POST", f"{self.dburl}", 
+							headers={
+								'Content-Type': 'application/json',
+								'Authorization': f'''Basic {self.dbtoken}'''}, 
+								data=dumps({
+									"operation": "insert", 
+									"schema": "dev", 
+									"table": self.dbOStable, 
+									"records": [
+											{
+												"PC_name": PC,
+												"OS": OS
+											}
+										]
+									})
+								)
 						self.log.print(f"By DB: {response.text}")
 					except:
 						self.log.print(f"Failed the DB insert")
 			except:
 				self.log.print(f"Error taking {PC} OS")
 
+			# NET
 			for i in self.get_net(PCcode):
 				try:
 					net = {"PC_name": PC}
@@ -100,12 +143,26 @@ class vtools:
 						
 					# If CSV enabled write into csv file
 					if self.csv:
-						DictWriter(open(self.net, 'a+', newline=''), fieldnames=self.net_header.split(","), restval='').writerow(net)
+						DictWriter(
+							open(self.net, 'a+', newline=''), 
+							fieldnames=self.net_header.split(","), 
+							restval='').writerow(net)
 					
 					# If DB enabled try to insert infos		
 					if self.dbenable:
 						try:
-							response = requests.request("POST", f"{self.dburl}", headers={'Content-Type': 'application/json','Authorization': f'''Basic {self.dbtoken}'''}, data=dumps({"operation": "insert", "schema": "dev", "table": self.dbNETtable, "records": [net]}))
+							response = requests.request(
+								"POST", f"{self.dburl}", 
+								headers={
+									'Content-Type': 'application/json',
+									'Authorization': f'''Basic {self.dbtoken}'''
+									}, data=dumps({
+										"operation": "insert", 
+										"schema": "dev", 
+										"table": self.dbNETtable, 
+										"records": [net]
+										})
+								)
 							self.log.print(f"By DB: {response.text}")
 						except:
 							self.log.print(f"Failed the DB insert")
@@ -113,6 +170,51 @@ class vtools:
 					self.log.print(f"Error taking {PC} network ifos")
 
 			self.log.print("Stored into csv file(s)")
+			
+			# Shared files
+			try:
+				shared_files = self.get_sharedfolders(PCcode)
+				print(shared_files)
+
+				# If CSV enabled write into csv file
+				if self.csv:
+					DictWriter(
+						open(self.shared_files, 'a+', newline=''), 
+						fieldnames=self.shared_files_header.split(","), 
+						restval=''
+						).writerows(
+							shared_files
+						)
+				
+				# If DB enabled try to insert infos
+				if self.dbenable:
+					try:
+						response = requests.request(
+							"POST", 
+							f"{self.dburl}", 
+							headers={
+								'Content-Type': 'application/json',
+								'Authorization': f'''Basic {self.dbtoken}'''
+								}, 
+							data=dumps(
+								{
+									"operation": "insert", 
+									"schema": "dev", 
+									"table": self.dbOStable, 
+									"records": [
+											{
+												"PC_name": PC,
+												"OS": OS
+											}
+										]
+									}
+								)
+							)
+						self.log.print(f"By DB: {response.text}")
+					except:
+						self.log.print(f"Failed the DB insert")
+			except:
+				self.log.print(f"Error taking {PC} OS")
 
 	def get_machines(self):
 		"""Get virtual machines' name
@@ -157,12 +259,22 @@ class vtools:
 
 			return vtools.remove_b(subprocess.check_output(cmd, shell=False))
 		else:
-			return vtools.remove_b(subprocess.Popen([self.vboxmanage] + array, stdout=subprocess.PIPE, stderr=subprocess.PIPE).communicate()[0])
+			return vtools.remove_b(
+				subprocess.Popen([self.vboxmanage] + array, 
+					 stdout=subprocess.PIPE, 
+					 stderr=subprocess.PIPE
+					 ).communicate()[0])
 
 	def get_os(self, machine_name):
 		""" Gets the vitual machine os
 		"""
-		OS = self.get_output(["guestproperty", "get", machine_name, "/VirtualBox/GuestInfo/OS/Product"]).replace("Value: ", "").replace("\\n", "").replace("\\r", "")
+		OS = self.get_output(
+			[
+				"guestproperty", 
+				"get", 
+				machine_name, 
+				"/VirtualBox/GuestInfo/OS/Product"
+			]).replace("Value: ", "").replace("\\n", "").replace("\\r", "")
 		self.log.print(f"Getted OS {OS}")
 		return OS
 
@@ -177,13 +289,30 @@ class vtools:
 		network = []
 		temp = []
 		attachments = self.get_attachments(machine_name)
+		self.get_sharedfolders(machine_name)
 
 		try:
 			propriety = "Count"
 			
-			for i in range(int(self.get_output(["guestproperty", "get", machine_name, f"/VirtualBox/GuestInfo/Net/{propriety}"]).replace("Value: ", "").replace("\\n", "").replace("\\r", ""))):
+			for i in range(int(self.get_output(
+					[
+						"guestproperty", 
+						"get", 
+						machine_name, 
+						f"/VirtualBox/GuestInfo/Net/{propriety}"
+					]
+				).replace("Value: ", "").replace("\\n", "").replace("\\r", ""))):
 				for propriety in ["Name", "V4/IP", "MAC"]:
-					temp.append(vtools.remove_b(self.get_output(["guestproperty", "get", machine_name, f"/VirtualBox/GuestInfo/Net/{i}/{propriety}"]).replace("Value: ", "").replace("\\n", "").replace("\\r", "")))
+					temp.append(
+						vtools.remove_b(
+							self.get_output(
+								[
+									"guestproperty", 
+									"get", 
+									machine_name, 
+									f"/VirtualBox/GuestInfo/Net/{i}/{propriety}"
+								]
+							).replace("Value: ", "").replace("\\n", "").replace("\\r", "")))
 
 				network.append(temp + [attachments[i]])
 				temp = []
@@ -206,6 +335,29 @@ class vtools:
 
 		self.log.print("Getted attachments")
 		return attachments
+
+	def get_sharedfolders(self, machine_name):
+		""" Gets the vitual machine attachment
+		"""
+		take = False
+		shared_folders = []
+
+		for i in self.get_output(["showvminfo", machine_name]).replace("\\r", "").split("\\n"):
+			if "Shared folders:" in i:
+				take = True
+
+			if "Capturing:" in i:
+				take = False
+				
+			i = i.replace("Shared folders:", "").replace("<none>", "").replace(
+				"\\\\", "\\").replace("Name: ", "").replace("Host path: ", "").replace(" (machine mapping)", "")
+			if take and len(i) != 0:
+				temp = {}
+				for key, value in zip(["name", "hostPath", "writable", "mount"], i.split(", ")):
+					temp[key] = value.replace("'", "")
+				shared_folders.append(temp)
+
+		return shared_folders
 
 def laucher():
 	""" Lauch all getting the params by the arguments passed on launch
@@ -236,14 +388,38 @@ def laucher():
 	else:
 		gui = programGUI(title="vtools", instructions=[
 														[
-															{"type": "bool", "title": "Want you to run it in the verbose mode?", "id": "verbose"},
-															{"type": "bool", "title": "Want you have a csv output?", "id": "csv"}
+															{
+																"type": "bool",
+																"title": "Want you to run it in the verbose mode?", 
+																"id": "verbose"
+															},
+															{
+																"type": "bool", 
+																"title": "Want you have a csv output?", 
+																"id": "csv"
+															}
 														],
 														[
-															{"type": "text", "title": "Insert url:", "id": "url"},
-															{"type": "text", "title": "Insert token:", "id": "token"},
-															{"type": "text", "title": "Insert OS table:", "id": "OStable"},
-															{"type": "text", "title": "Insert NET table:", "id": "NETtable"}
+															{
+																"type": "text", 
+																"title": "Insert url:", 
+																"id": "url"
+															},
+															{
+																"type": "text", 
+																"title": "Insert token:", 
+																"id": "token"
+															},
+															{
+																"type": "text", 
+																"title": "Insert OS table:", 
+																"id": "OStable"
+															},
+															{
+																"type": "text", 
+																"title": "Insert NET table:", 
+																"id": "NETtable"
+															}
 														]
 													])
 
