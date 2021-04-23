@@ -80,7 +80,7 @@ jobs:
         choco install vtools -d-v -s . --pre -y --force
     - name: Install vbox
       run: |
-        choco install virtalbox --pre -y
+        choco install virtualbox -y
         md "C:\Work"
         Copy-Item "C:\Program Files\Oracle\VirtualBox\*" -Destination "C:\Work" -Recurse
     - name: Try to run
