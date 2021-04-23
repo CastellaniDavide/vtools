@@ -6,7 +6,6 @@ on:
 jobs:
   test-py:
     runs-on: ubuntu-20.04
-
     steps:
     - uses: actions/checkout@v2
     - name: Set up Python
@@ -32,7 +31,6 @@ jobs:
         
   test-pip:
     runs-on: ubuntu-20.04
-
     steps:
     - uses: actions/checkout@v2
     - name: Set up Python
@@ -101,7 +99,6 @@ jobs:
         sudo add-apt-repository ppa:jyrki-pulliainen/dh-virtualenv
         sudo apt-get update
         sudo apt-get install build-essential debhelper devscripts equivs dh-virtualenv python3.8 gnupg gnupg2 tree
-
     - uses: oprypin/find-latest-tag@v1
       with:
         repository: CastellaniDavide/vtools
@@ -117,7 +114,6 @@ jobs:
         echo "::set-output name=NUPKG_FILE::vtools.$(echo ${{ steps.latest.outputs.tag }} | sed 's/v//').nupkg"
         echo "::set-output name=NUPKG_FILE_PATH::./choco/vtools_$(echo ${{ steps.latest.outputs.tag }} | sed 's/v//').nupkg"
       id: envirorment-variables
-
     - name: Create .deb file
       run: |
         cd debian
@@ -133,7 +129,6 @@ jobs:
         sudo add-apt-repository ppa:jyrki-pulliainen/dh-virtualenv
         sudo apt-get update
         sudo apt-get install build-essential debhelper devscripts equivs dh-virtualenv python3.8 gnupg gnupg2 tree
-    
     - uses: oprypin/find-latest-tag@v1
       with:
         repository: CastellaniDavide/vtools
@@ -149,7 +144,6 @@ jobs:
         echo "::set-output name=NUPKG_FILE::vtools.$(echo ${{ steps.latest.outputs.tag }} | sed 's/v//').nupkg"
         echo "::set-output name=NUPKG_FILE_PATH::./choco/vtools_$(echo ${{ steps.latest.outputs.tag }} | sed 's/v//').nupkg"
       id: envirorment-variables
-
     - name: gpg import 
       run: |
         #echo "${{ secrets.GPG_KEY }}" > key.txt
@@ -166,14 +160,12 @@ jobs:
         #gpg --import-ownertrust otrust.txt
         sudo echo "export GPGKEY=${{ secrets.GPG_KEY_ID }}" >> ~/.bashrc
         gpg --list-secret-keys
-
     - name: Create Debian package
       run: |
         tar -czvf ${{ steps.envirorment-variables.outputs.TAR_FILE }} debian/
         tree
         cd ./debian/
         debuild -S -sa -k${{ secrets.GPG_KEY_ID }} -p"gpg --batch --passphrase ${{ secrets.GPG_PWS }} --pinentry-mode loopback"
-    
     - name: Checks files
       run: |
         sudo apt install tree
