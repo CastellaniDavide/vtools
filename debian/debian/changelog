@@ -1,3 +1,9 @@
+vtools (01.04) focal; urgency=medium
+
+  * Fixed bug
+
+ -- Castellani Davide <help@castellanidavide.it>  Fri, 23 Mar 2021 22:11:00 +1000
+ 
 vtools (01.02) focal; urgency=medium
 
   * Fixed a choco bug

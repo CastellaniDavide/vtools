@@ -1,5 +1,9 @@
 # Changelog
 
+## [01.04] - 2021-04-23
+### Changed
+ - Fixed a bug
+
 ## [01.03] - 2021-03-21
 ### Added
  - Added GUI on the execution
