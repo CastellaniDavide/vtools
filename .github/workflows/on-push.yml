@@ -81,7 +81,7 @@ jobs:
     - name: Install vbox
       run: |
         choco install virtalbox
-        mk "C:\Work"
+        md "C:\Work"
         Copy-Item "C:\Program Files\Oracle\VirtualBox\*" -Destination "C:\Work" -Recursive
     - name: Try to run
       run: |
