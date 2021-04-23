@@ -3,11 +3,12 @@
 ## [01.03] - 2021-03-21
 ### Added
  - Added GUI on the execution
- -  Shared folder
+ - Shared folder
 ### Changed
  - Fixed a choco bug: now choco runs without any onther dependences
  - Now the stucture is in the [standard template](https://github.com/marconivr/2020-2022-T-CI/wiki/Structure)
  - Optimize code
+ - Optimized the DB manager, if the tables or schema do not exist yet, create them
 
 ## [01.02] - 2021-03-21
 ### Changed

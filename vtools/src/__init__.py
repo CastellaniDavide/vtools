@@ -20,10 +20,11 @@ class vtools:
 			   dburl=None, 
 			   dbtoken=None, 
 			   dbOStable=None, 
-			   dbNETtable=None):
+			   dbNETtable=None, 
+			   dbFStable=None):
 		"""Where it all begins
 		"""
-		self.setup(verbose, csv, dbenable, dburl, dbtoken, dbOStable, dbNETtable) # Setup all the requirements
+		self.setup(verbose, csv, dbenable, dburl, dbtoken, dbOStable, dbNETtable, dbFStable) # Setup all the requirements
 
 		try:
 			self.get_machines() # Get all disponible virtualmachines
@@ -31,7 +32,7 @@ class vtools:
 		except:
 			print("Error: make sure you have installed vbox on your PC")
 
-	def setup(self, verbose, csv, dbenable, dburl, dbtoken, dbOStable, dbNETtable):
+	def setup(self, verbose, csv, dbenable, dburl, dbtoken, dbOStable, dbNETtable, dbFStable):
 		"""Setup
 		"""
 		# Define main variabiles
@@ -42,6 +43,7 @@ class vtools:
 		self.dbtoken = dbtoken
 		self.dbOStable = dbOStable
 		self.dbNETtable = dbNETtable
+		self.dbFStable = dbFStable
 		self.vboxmanage = '"C:\Work\VBoxManage"' if os.name == 'nt' else "vboxmanage"
 
 		# Define log
@@ -60,6 +62,61 @@ class vtools:
 		self.net_header = "PC_name,network_card_name,IPv4,MAC,Attachment"
 		self.shared_files_header = "name,hostPath,writable,mount"
 		self.log.print("Headers inizialized")
+
+		# Inizialize DB
+		if self.dbenable:
+			try:
+				response = requests.request(
+					"POST", f"{self.dburl}", 
+					headers={
+						'Content-Type': 'application/json',
+						'Authorization': f'''Basic {self.dbtoken}'''}, 
+						data=dumps({
+									"operation": "create_schema",
+									"schema": "dev"
+								})
+						)
+				self.log.print(f"By DB: {response.text}")
+			except:
+				self.log.print(f"Failed to create dev schema")
+
+			for table, params in zip([self.dbOStable, self.dbNETtable, self.dbFStable], 
+							[self.OSheader, self.net_header, self.shared_files_header]):
+				try:
+					response = requests.request(
+						"POST", f"{self.dburl}", 
+						headers={
+							'Content-Type': 'application/json',
+							'Authorization': f'''Basic {self.dbtoken}'''}, 
+							data=dumps({
+									"operation": "create_table",
+									"schema": "dev",
+									"table": table,
+									"hash_attribute": "id"
+								})
+							)
+					self.log.print(f"By DB: {response.text}")
+				except:
+					self.log.print(f"Failed to create {table} table")
+
+				for param in params.split(","):
+					try:
+						response = requests.request(
+							"POST", f"{self.dburl}", 
+							headers={
+								'Content-Type': 'application/json',
+								'Authorization': f'''Basic {self.dbtoken}'''}, 
+								data=dumps({
+										"operation": "create_attribute",
+										"schema": "dev",
+										"table": table,
+										"attribute": param
+									})
+								)
+						self.log.print(f"By DB: {response.text}")
+					except:
+						self.log.print(f"Failed to create {param} into {table} table")
+					
 
 		# If selected setup csv
 		if self.csv:
@@ -174,7 +231,6 @@ class vtools:
 			# Shared files
 			try:
 				shared_files = self.get_sharedfolders(PCcode)
-				print(shared_files)
 
 				# If CSV enabled write into csv file
 				if self.csv:
@@ -200,13 +256,8 @@ class vtools:
 								{
 									"operation": "insert", 
 									"schema": "dev", 
-									"table": self.dbOStable, 
-									"records": [
-											{
-												"PC_name": PC,
-												"OS": OS
-											}
-										]
+									"table": self.dbFStable, 
+									"records": shared_files
 									}
 								)
 							)
@@ -368,7 +419,7 @@ def laucher():
 	elif "--batch" in argv or "-b" in argv:
 		debug = "--debug" in argv or "-d" in argv
 		csv = "--csv" in argv
-		dbenable = dburl = dbtoken = dbOStable = dbNETtable = None
+		dbenable = dburl = dbtoken = dbOStable = dbNETtable = dbFStable = None
 
 		for arg in argv:
 			if "--url=" in arg:
@@ -379,10 +430,12 @@ def laucher():
 				dbOStable = arg.replace("--OStable=", "")
 			if "--NETtable=" in arg:
 				dbNETtable = arg.replace("--NETtable=", "")
+			if "--FStable=" in arg:
+				dbFStable = arg.replace("--FStable=", "")
 
 		# Launch the principal part of the code
-		if dburl != None and dbtoken != None and dbOStable != None and dbNETtable != None:
-			vtools(debug, csv, True, dburl, dbtoken, dbOStable, dbNETtable)
+		if dburl != None and dbtoken != None and dbOStable != None and dbNETtable != None and dbFStable != None:
+			vtools(debug, csv, True, dburl, dbtoken, dbOStable, dbNETtable, dbFStable)
 		else:
 			vtools(debug, csv)
 	else:
@@ -412,13 +465,18 @@ def laucher():
 															},
 															{
 																"type": "text", 
-																"title": "Insert OS table:", 
+																"title": "Insert OS table name:", 
 																"id": "OStable"
 															},
 															{
 																"type": "text", 
-																"title": "Insert NET table:", 
+																"title": "Insert NET table name:", 
 																"id": "NETtable"
+															},
+															{
+																"type": "text", 
+																"title": "Insert Shared-Folder table name:", 
+																"id": "SFtable"
 															}
 														]
 													])
@@ -431,7 +489,8 @@ def laucher():
 				gui.get_values()["url"], 
 				gui.get_values()["token"], 
 				gui.get_values()["OStable"],
-			    gui.get_values()["NETtable"]
+			    gui.get_values()["NETtable"],
+			    gui.get_values()["SFtable"]
 				)
 		else:
 			vtools(
