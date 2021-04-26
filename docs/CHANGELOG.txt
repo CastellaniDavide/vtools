@@ -1,5 +1,9 @@
 # Changelog
 
+## [01.05] - 2021-04-26
+### Changed
+ - Python code formalized in the pep8 standard
+
 ## [01.04] - 2021-04-23
 ### Changed
  - Fixed a bug
