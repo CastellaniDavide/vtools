@@ -11,7 +11,7 @@ Manage vitual machines, getting some informations (eg. OS).
 ## Installation
 ![](https://dctacademy.com/wp-content/uploads/2016/12/install.jpeg)
  - choco (Windows) (as Administartor)
-   - ```choco install vtools=01.02```
+   - ```choco install vtools```
  - Ubuntu using apt:
     - ```sudo add-apt-repository ppa:castellanidavide/school -y; sudo apt update; sudo apt install vtools -y```
 

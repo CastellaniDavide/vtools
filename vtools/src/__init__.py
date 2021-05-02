@@ -10,7 +10,7 @@ import requests
 from programGUI import programGUI
 
 __author__ = "help@castellanidavide.it"
-__version__ = "01.04 2021-04-23"
+__version__ = "01.05 2021-04-23"
 
 
 class vtools:
