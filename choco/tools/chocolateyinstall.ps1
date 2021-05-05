@@ -1,9 +1,17 @@
-﻿# Variabiles
-$toolsDir   = "$(Split-Path -parent $MyInvocation.MyCommand.Definition)"
-$ppath = "C:\Progra~1\vtools"
+﻿ param (
+    [switch]$local = $false
+ )
+
+# Variabiles
+$toolsDir = "$(Split-Path -parent $MyInvocation.MyCommand.Definition)"
+
+if ($local) {
+	$ppath = $env:LOCALAPPDATA + "\vtools"
+} else {
+	$ppath = "C:\Progra~1\vtools"
+}
+
 $path = "$ppath\__init__"
-echo "My personal path is: $ppath"
-echo "My exe path id $exepath"
 
 # Set folder and rename exe file
 New-Item -ItemType Directory -Force -Path $ppath

@@ -10,7 +10,7 @@ import requests
 from programGUI import programGUI
 
 __author__ = "help@castellanidavide.it"
-__version__ = "01.05 2021-04-23"
+__version__ = "01.06 2021-05-05"
 
 
 class vtools:
@@ -65,10 +65,16 @@ class vtools:
                 if os.name == 'nt' else "~/trace.log", title="vtools",
                 verbose=self.verbose)
         except BaseException:
-            self.log = tabular_log(
-                "trace.log",
-                title="vtools",
-                verbose=self.verbose)
+            try:
+                self.log = tabular_log(
+                    f"{os.getenv('LOCALAPPDATA')}/vtools/trace.log",
+                    title="vtools",
+                    verbose=self.verbose)
+            except BaseException:
+                self.log = tabular_log(
+                    "trace.log",
+                    title="vtools",
+                    verbose=self.verbose)
         self.log.print("Created log")
 
         # Headers

@@ -1,5 +1,9 @@
 # Changelog
 
+## [01.06] - 2021-04-26
+### Changed
+ - Added local option for choco package
+
 ## [01.05] - 2021-04-26
 ### Changed
  - Python code formalized in the pep8 standard

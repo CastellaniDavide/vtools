@@ -1,5 +1,5 @@
 # vtools
-[![GitHub license](https://img.shields.io/badge/license-GNU-green?style=flat)](https://github.com/CastellaniDavide/cpp-vtools/blob/master/LICENSE) ![Author](https://img.shields.io/badge/author-Castellani%20Davide-green?style=flat) ![Version](https://img.shields.io/badge/version-v01.05-blue?style=flat) ![Language Python](https://img.shields.io/badge/language-Python-yellowgreen?style=flat) ![sys.platform supported](https://img.shields.io/badge/OS%20platform%20supported-All-blue?style=flat) [![On GitHub](https://img.shields.io/badge/on%20GitHub-True-green?style=flat&logo=github)](https://github.com/CastellaniDavide/vtools) 
+[![GitHub license](https://img.shields.io/badge/license-GNU-green?style=flat)](https://github.com/CastellaniDavide/cpp-vtools/blob/master/LICENSE) ![Author](https://img.shields.io/badge/author-Castellani%20Davide-green?style=flat) ![Version](https://img.shields.io/badge/version-v01.06-blue?style=flat) ![Language Python](https://img.shields.io/badge/language-Python-yellowgreen?style=flat) ![sys.platform supported](https://img.shields.io/badge/OS%20platform%20supported-All-blue?style=flat) [![On GitHub](https://img.shields.io/badge/on%20GitHub-True-green?style=flat&logo=github)](https://github.com/CastellaniDavide/vtools) 
 
 ## Description
 Manage vitual machines, getting some informations (eg. OS).
@@ -11,7 +11,7 @@ Manage vitual machines, getting some informations (eg. OS).
 ## Installation
 ![](https://dctacademy.com/wp-content/uploads/2016/12/install.jpeg)
  - choco (Windows) (as Administartor)
-   - ```choco install vtools```
+   - ```choco install vtools``` (Add ```-local``` if you want to install it only for the local user of the PC)
  - Ubuntu using apt:
     - ```sudo add-apt-repository ppa:castellanidavide/school -y; sudo apt update; sudo apt install vtools -y```
 

@@ -1,3 +1,9 @@
+vtools (01.06) focal; urgency=medium
+
+  * Added local option for choco package
+
+ -- Castellani Davide <help@castellanidavide.it>  Wed, 05 May 2021 20:40:00 +1000
+ 
 vtools (01.05) focal; urgency=medium
 
   * Python code formalized in the pep8 standard
